@@ -10,5 +10,5 @@ Recently, I co-founded the **[Centre for HDP Nexus Solutions](https://hdpnexus.o
 
 ### Contact & Resources
 
-* ⚡ [Download my complete CV (PDF)](/David.Lefor.-.CV.04.09.pdf)
+* ⚡ [Download my complete CV (PDF)](/David Lefor - CV 04.09.pdf)
 * 📫 How to reach me: [lefor@iss.nl](mailto:lefor@iss.nl) or [david.lefor@edu.ruhr-uni-bochum.de](mailto:david.lefor@edu.ruhr-uni-bochum.de)
