@@ -2,4 +2,8 @@
 layout: default
 ---
 
-{% include cv_content.md %}
+{% capture cv_content %}
+  {% include _includes/cv_content.md %}
+{% endcapture %}
+
+{{ cv_content | markdownify }}
