@@ -1,5 +1,5 @@
-/* Targets the main header container and reduces top/bottom space */
+/* Targets the main header container and forces smaller padding */
 .page-header {
-    padding-top: 2rem !important; /* Reduced top padding */
-    padding-bottom: 2rem !important; /* Reduced bottom padding */
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
 }
