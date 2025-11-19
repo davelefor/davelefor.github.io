@@ -6,7 +6,7 @@ Recently, I co-founded the Centre for HDP Nexus Solutions, and serve as a Co-Dir
 
 👯 I’m looking to collaborate on research and consultancy projects that address displacement, education systems, youth development, and rights-based programming. I’m particularly interested in partnerships with NGOs, UN agencies, and research institutes that value rigorous qualitative methods, participatory approaches, and evidence synthesis to inform policy and programmatic decision-making.
 
-⚡ [Download my complete CV (PDF)] [David Lefor - CV 04.09.pdf](https://github.com/user-attachments/files/23626683/David.Lefor.-.CV.04.09.pdf)
+⚡ Download my complete CV (PDF) [David Lefor - CV 04.09.pdf](https://github.com/user-attachments/files/23626683/David.Lefor.-.CV.04.09.pdf)
 
 📫 How to reach me: lefor@iss.nl or david.lefor@edu.ruhr-uni-bochum.de
 <!--
