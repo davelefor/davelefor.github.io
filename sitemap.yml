@@ -1,2 +1,35 @@
-- name: generate-sitemap
-  uses: cicirello/generate-sitemap@v1.10.4
+name: Generate Sitemap and Deploy
+on:
+  push:
+    branches:
+      - main  # Or 'master', depending on your default branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1' # Specify a compatible Ruby version for Jekyll
+
+      - name: Install Dependencies
+        run: |
+          gem install bundler jekyll
+
+      - name: Generate Sitemap
+        uses: cicirello/generate-sitemap@v1.10.4
+        with:
+          # IMPORTANT: Use your live domain URL here
+          base-url: 'https://www.davidlefor.com'
+          # Tell the action where to put the final sitemap file
+          output-file: _site/sitemap.xml 
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
