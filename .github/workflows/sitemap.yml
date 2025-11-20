@@ -1,0 +1,36 @@
+name: Generate XML Sitemap
+
+on:
+  push:
+    branches: [ main ] # Ensure this is your correct hosting branch (main or master)
+
+jobs:
+  sitemap_job:
+    runs-on: ubuntu-latest
+    name: Generate and Commit Sitemap
+    permissions:
+      contents: write # CRUCIAL: Grants permission to write the sitemap.xml file
+
+    steps:
+    - name: Checkout the repo
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 
+
+    - name: Generate the sitemap
+      id: sitemap
+      # Using v1 instead of v1.10.4 to simplify versioning
+      uses: cicirello/generate-sitemap@v1 
+      with:
+        # Corrected input name for the base URL (using v1)
+        base-url-path: 'https://www.davidlefor.com' 
+        # Optional: Specify output file path if not using default sitemap.xml
+        # output-file: 'sitemap.xml' 
+
+    # --- FINAL CRUCIAL STEP: COMMIT THE NEW SITEMAP FILE ---
+    - name: Commit and Push Sitemap
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: 'Feat: Automated sitemap update'
+        # Only commit the sitemap file, ignore others
+        file_pattern: 'sitemap.xml'
