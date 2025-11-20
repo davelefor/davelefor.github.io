@@ -3,28 +3,32 @@ name: Simple Sitemap Generator
 on:
   push:
     branches:
-      - main # Change to 'master' if your main branch is named 'master'
+      - main # CHANGE to 'master' if your main branch is named 'master'
 
 jobs:
   sitemap:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Required to push the sitemap.xml file to your repository
+      # Crucial permission to write the sitemap.xml file back to the repository
+      contents: write 
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # This action automatically generates sitemap.xml
+      # --- Use the known, reliable sitemap action ---
       - name: Generate Sitemap
-        uses: eunjae-lee/sitemap-generator@v1
+        # CORRECT ACTION NAME
+        uses: marketplace-actions/sitemap-generator@v1.0.0 
         with:
-          # Your live domain URL
-          base-url: 'https://www.davidlefor.com' 
-          # Files to ignore (e.g., internal config files)
+          # REQUIRED: Your live domain URL
+          site-url: 'https://www.davidlefor.com' 
+          # Files/paths to exclude from the sitemap generation
           exclude-files: 'README.md, .github/*' 
-          # The branch to publish the sitemap to (where your site is hosted)
+          # The branch to commit the sitemap.xml file to
           target-branch: main 
 
-      - name: Deploy
-        run: echo "Sitemap generated and committed to the main branch."
+      - name: Commit and Push Sitemap
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'Feat: Add/Update sitemap.xml'
