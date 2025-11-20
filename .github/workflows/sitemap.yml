@@ -28,15 +28,13 @@ jobs:
       - name: Build Jekyll Site
         run: bundle exec jekyll build
 
-      # --- 3. GENERATE SITEMAP (FIXED PARAMETERS) ---
+     # --- 3. GENERATE SITEMAP (FIXED PARAMETERS) ---
       - name: Generate Sitemap
         uses: cicirello/generate-sitemap@v1.10.4
         with:
-          # Use the correct input for the base URL
-          base-url-path: 'https://www.davidlefor.com'
-          # Use the correct input for the output path relative to the site's output folder (_site)
+          # Parameters must align under 'with:'
+          base-url-path: 'https://www.davidlefor.com' 
           output-file: _site/sitemap.xml 
-          # Ensure sitemap is generated from the root of the Jekyll output
           path-to-root: ./_site
 
       # --- 4. DEPLOY TO GITHUB PAGES (FIXED PERMISSIONS) ---
