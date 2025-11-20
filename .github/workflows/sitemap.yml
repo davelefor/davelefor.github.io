@@ -1,35 +1,51 @@
-name: Generate Sitemap and Deploy
+name: Sitemap Generation and Deployment
 on:
   push:
     branches:
-      - main  # Or 'master', depending on your default branch name
+      - main # CHANGE to 'master' if your main branch is named 'master'
 
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # IMPORTANT: Grants permission to push code to the branch
+      pages: write    # Grants permission to deploy to GitHub Pages
+      id-token: write # Required for secure deployment actions
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      # --- 1. SET UP JEKYLL ENVIRONMENT ---
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # Specify a compatible Ruby version for Jekyll
+          ruby-version: '3.1'
+          bundler-cache: true 
 
-      - name: Install Dependencies
-        run: |
-          gem install bundler jekyll
+      - name: Install Jekyll Dependencies
+        run: bundle install
 
+      # --- 2. BUILD THE SITE (JEKYLL) ---
+      # This step must happen BEFORE the sitemap is generated
+      - name: Build Jekyll Site
+        run: bundle exec jekyll build
+
+      # --- 3. GENERATE SITEMAP (FIXED PARAMETERS) ---
       - name: Generate Sitemap
         uses: cicirello/generate-sitemap@v1.10.4
         with:
-          # IMPORTANT: Use your live domain URL here
-          base-url: 'https://www.davidlefor.com'
-          # Tell the action where to put the final sitemap file
+          # Use the correct input for the base URL
+          base-url-path: 'https://www.davidlefor.com'
+          # Use the correct input for the output path relative to the site's output folder (_site)
           output-file: _site/sitemap.xml 
+          # Ensure sitemap is generated from the root of the Jekyll output
+          path-to-root: ./_site
 
+      # --- 4. DEPLOY TO GITHUB PAGES (FIXED PERMISSIONS) ---
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: ./_site # Deploys the entire _site folder, including the new sitemap
+          force_orphan: true
