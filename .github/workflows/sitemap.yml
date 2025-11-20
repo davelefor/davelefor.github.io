@@ -22,10 +22,7 @@ jobs:
         with:
           ruby-version: '3.1'
           bundler-cache: true 
-
-      - name: Install Jekyll Dependencies
-        run: bundle install
-
+      
       # --- 2. BUILD THE SITE (JEKYLL) ---
       # This step must happen BEFORE the sitemap is generated
       - name: Build Jekyll Site
