@@ -1,0 +1,30 @@
+name: Simple Sitemap Generator
+
+on:
+  push:
+    branches:
+      - main # Change to 'master' if your main branch is named 'master'
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required to push the sitemap.xml file to your repository
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # This action automatically generates sitemap.xml
+      - name: Generate Sitemap
+        uses: eunjae-lee/sitemap-generator@v1
+        with:
+          # Your live domain URL
+          base-url: 'https://www.davidlefor.com' 
+          # Files to ignore (e.g., internal config files)
+          exclude-files: 'README.md, .github/*' 
+          # The branch to publish the sitemap to (where your site is hosted)
+          target-branch: main 
+
+      - name: Deploy
+        run: echo "Sitemap generated and committed to the main branch."
